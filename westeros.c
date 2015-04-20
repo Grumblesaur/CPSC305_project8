@@ -35,22 +35,33 @@ struct order * place_order(struct customer *customer, char *description,
 	} else {
 		this_order->rush = 0;
 	}
-
+	
 	this_order->next = NULL;
 	
 	// find out how many orders the customer currently has
-	int counter = 0;
-	struct order * curr = customer->orders;
-	while(curr->next != NULL) {
+	static int counter = 0;
+	struct order * curr;
+	if (customer->orders != NULL) {
+		curr = customer->orders;
+		
+		// if the order list isn't empty, count 
+		while(curr->next != NULL) {
+			++counter;
+			curr = curr->next;
+		}
+		
+		// add new order to linked list
+		curr->next = this_order;
 		++counter;
-		curr = curr->next;
+	} else {
+		// do this when the list is empty
+		customer->orders = this_order;
+		counter = 1;
 	}
-	// here curr->next is assuredly NULL, add the new order item to the list
-	curr->next = this_order;
 	
 	// add one more for THIS order, increment value pointed at by num_orders
-	++counter;
 	*num_orders = counter;
+	printf("Current number of orders is %d.\n", *num_orders);
 	
 	return this_order;		
 }
