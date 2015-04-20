@@ -19,7 +19,7 @@ struct order * place_order(struct customer *customer, char *description,
 	
 	// copy the item description
 	strcpy(this_order->desc, description);
-
+	
 	// copy the number of items
 	this_order->quantity = quant;
 	
@@ -36,7 +36,6 @@ struct order * place_order(struct customer *customer, char *description,
 		this_order->rush = 0;
 	}
 
-	// we don't know where this thing is gonna point to later, make it NULL	
 	this_order->next = NULL;
 	
 	// find out how many orders the customer currently has
@@ -46,12 +45,12 @@ struct order * place_order(struct customer *customer, char *description,
 		++counter;
 		curr = curr->next;
 	}
-	// add one more for THIS order, which will be added elsewhere
+	// here curr->next is assuredly NULL, add the new order item to the list
+	curr->next = this_order;
+	
+	// add one more for THIS order, increment value pointed at by num_orders
 	++counter;
-	
-	// write that number on the other side of the num_orders pointer
 	*num_orders = counter;
-	
 	
 	return this_order;		
 }
