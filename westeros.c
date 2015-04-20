@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "westeros.h"
 
 // really, this whole thing is a constructor for the "struct order" type
@@ -7,7 +8,8 @@ struct order * place_order(struct customer *customer, char *description,
 	int quant, float unit_price_in_gold, int *num_orders) {
 	
 	// allocate memory for this order
-	struct order *this_order = (struct order*) malloc(sizeof(struct order));
+	struct order *this_order;
+	this_order = (struct order*) malloc(sizeof(struct order));
 	
 	// track unique order numbers in the data segment for permanence
 	static int order_num = 1;
@@ -28,7 +30,7 @@ struct order * place_order(struct customer *customer, char *description,
 	this_order->order_num = order_num++;
 	
 	// determine whether this is a rush order
-	if (strcmp(customer.family, "Lannister") == 0) {
+	if (strcmp(customer->family, "Lannister") == 0) {
 		this_order->rush = 1;
 	} else {
 		this_order->rush = 0;
@@ -37,9 +39,21 @@ struct order * place_order(struct customer *customer, char *description,
 	// we don't know where this thing is gonna point to later, make it NULL	
 	this_order->next = NULL;
 	
-	//TODO: figure out what to do with the num_orders argument
-	// -- this will probably require looking at Stephen's assignment page	
+	// find out how many orders the customer currently has
+	int counter = 0;
+	struct order * curr = customer->orders;
+	while(curr->next != NULL) {
+		++counter;
+		curr = curr->next;
+	}
+	// add one more for THIS order, which will be added elsewhere
+	++counter;
 	
+	// write that number on the other side of the num_orders pointer
+	*num_orders = counter;
+	
+	
+	return this_order;		
 }
 
 int fulfill_order(char *customer_name, int order_num, float *revenue) {
