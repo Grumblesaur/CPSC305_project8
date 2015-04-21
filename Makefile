@@ -17,7 +17,7 @@ runec: westeros
 	./westeros ec=true
 
 clean:
-	rm -f westeros
+	rm -f westeros *.o
 
 unswap:
 	rm *.swp

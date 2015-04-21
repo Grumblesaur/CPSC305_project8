@@ -1,0 +1,24 @@
+115 lines in file 'westeros.c'.
+82 lines of code.
+15 lines of comments.
+18 lines of whitespace.
+
+51 lines in file 'westeros.h'.
+25 lines of code.
+10 lines of comments.
+16 lines of whitespace.
+
+132 lines in file 'test.c'.
+14 lines of code.
+98 lines of comments.
+20 lines of whitespace.
+
+48 lines in file 'stephen.c'.
+37 lines of code.
+0 lines of comments.
+11 lines of whitespace.
+
+346 lines in files overall.
+158 lines of code.
+123 lines of comments.
+65 lines of whitespace.

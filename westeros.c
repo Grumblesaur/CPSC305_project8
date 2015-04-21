@@ -27,10 +27,11 @@ struct order * place_order(struct customer *customer, char *description,
 		this_order->rush = 0;
 	}
 	
+	// make this the end of the list
 	this_order->next = NULL;
 	
 	// code for adding to a linked list and counting order numbers
-	static int counter = 0; // not sure if correct, but it works for now.
+	static int counter = 0; 
 	struct order * curr;
 	if (customer->orders != NULL) {
 		curr = customer->orders;
@@ -53,30 +54,29 @@ struct order * place_order(struct customer *customer, char *description,
 int fulfill_order(char *customer_name, int order_num, float *revenue) {
 	// use Stephen's function to pull the customer from the database
 	struct customer * cust = lookup_customer(customer_name);
-	struct order * curr = cust->orders;
-	int order_exists = 0; // this is a boolean; 0 : false, -1 : true
-	float cash = 0; // we'll write this to the data pointed at by revenue
 	
-	// make sure the customer has placed orders
+	// initialize curr ptr and vars for transaction information
+	struct order * curr = cust->orders;
+	int order_exists = 0;
+	float cash = 0;
+	
+	// obtain transaction information
 	if (curr != NULL) {
 		if (curr->order_num == order_num) {
 				order_exists = -1;
 				cash = curr->unit_price_in_gold * curr->quantity;
-		} else {
+		} else { 
 			while (curr->next != NULL) {
+				curr = curr->next;
 				if (curr->order_num == order_num) {
 					order_exists = -1;
 					cash = curr->unit_price_in_gold * curr->quantity;
-					break;
+					break; 
 				}
-				curr = curr->next;
 			}
 		}
-	} else { // if no orders, bail out
-		*revenue = 0;
-		return 0;
 	}
-	
+
 	if (order_exists == 0) {
 		*revenue = 0;
 		return 0;
@@ -89,19 +89,18 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 
 	// guaranteed that the list is not empty by the time we get here
 	
-	// if it's the first item in the list we're getting rid of
+	// delete the order we just filled
 	if (curr->order_num == order_num) {
 		temp = cust->orders->next;
 		free(cust->orders);
-		printf("I deleted something at the front of the list.\n");
 		cust->orders = temp;
-	} else { // if it's anywhere else in the list
+	} else {
 		while (curr->next != NULL) {
 			if (curr->next->order_num == order_num) {
 				temp = curr->next->next;
 				free(curr->next);
-				printf("I deleted something within/at end of list.\n");
 				curr->next = temp;
+				break;
 			}
 			curr = curr->next;
 		}
