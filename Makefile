@@ -1,5 +1,5 @@
-westeros:
-	gcc -o westeros westeros.c test.c stephen.c westeros.h
+westeros: westeros.c stephen.c test.c
+	gcc -o westeros westeros.c stephen.c test.c
 
 run: westeros
 	./westeros ec=false
