@@ -1,8 +1,14 @@
-westeros: westeros.o test.o stephen.o
-	gcc -o westeros westeros.h westeros.c test.c stephen.c
+westeros:
+	gcc -o westeros westeros.c test.c stephen.c westeros.h
+
+run: westeros
+	./westeros ec=false
+
+runec: westeros
+	./westeros ec=true
 
 clean:
-	rm *.o westeros
+	rm -f westeros
 
 unswap:
 	rm *.swp
