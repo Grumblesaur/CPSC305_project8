@@ -4,7 +4,7 @@
 #include <string.h>
 #include "westeros.h"
 
-void main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
 
     int ec = 0;
 
@@ -129,4 +129,6 @@ void main(int argc, char *argv[]) {
     } else {
         printf("(100/100)\n");
     }
+	
+	return 0;
 }
