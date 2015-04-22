@@ -55,6 +55,7 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 	// use Stephen's function to pull the customer from the database
 	struct customer * cust = lookup_customer(customer_name);
 	
+	// bail out if the customer lookup returned NULL
 	if (cust == NULL) {
 		*revenue = 0;
 		return 0;
