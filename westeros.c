@@ -55,6 +55,11 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 	// use Stephen's function to pull the customer from the database
 	struct customer * cust = lookup_customer(customer_name);
 	
+	if (cust == NULL) {
+		*revenue = 0;
+		return 0;
+	}
+	
 	// initialize curr ptr and vars for transaction information
 	struct order * curr = cust->orders;
 	int order_exists = 0;
