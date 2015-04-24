@@ -46,7 +46,6 @@ struct order * place_order(struct customer *customer, char *description,
 		counter = 1;
 	}
 	
-	// add one more for THIS order, increment value pointed at by num_orders
 	*num_orders = counter;
 	return this_order;		
 }
