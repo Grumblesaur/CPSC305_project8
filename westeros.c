@@ -34,6 +34,7 @@ struct order * place_order(struct customer *customer, char *description,
 	static int counter = 0; 
 	struct order * curr;
 	if (customer->orders != NULL) {
+		// when the list has been added to
 		curr = customer->orders;
 		while (curr->next != NULL) {
 			++counter;
@@ -42,6 +43,7 @@ struct order * place_order(struct customer *customer, char *description,
 		curr->next = this_order;
 		++counter;
 	} else {
+		// if this is the customer's first order
 		customer->orders = this_order;
 		counter = 1;
 	}
@@ -50,11 +52,12 @@ struct order * place_order(struct customer *customer, char *description,
 	return this_order;		
 }
 
+// in a sense, this is a destructor with some useful side effects
 int fulfill_order(char *customer_name, int order_num, float *revenue) {
 	// use Stephen's function to pull the customer from the database
 	struct customer * cust = lookup_customer(customer_name);
 	
-	// bail out if the customer lookup returned NULL
+	// bail out if the customer we looked for is nonexistant
 	if (cust == NULL) {
 		*revenue = 0;
 		return 0;
@@ -82,24 +85,26 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 		}
 	}
 
+	// bail out if we couldn't find the order
 	if (order_exists == 0) {
 		*revenue = 0;
 		return 0;
 	}
 	
+	// prepare pointers for list traversal
 	struct order * temp = NULL;
-
-	// reset curr pointer
 	curr = cust->orders;
 
 	// guaranteed that the list is not empty by the time we get here
 	
 	// delete the order we just filled
 	if (curr->order_num == order_num) {
+		// front of the line case
 		temp = cust->orders->next;
 		free(cust->orders);
 		cust->orders = temp;
 	} else {
+		// anywhere else case
 		while (curr->next != NULL) {
 			if (curr->next->order_num == order_num) {
 				temp = curr->next->next;
@@ -111,6 +116,7 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 		}
 	}
 	
+	// home free
 	*revenue = cash;
 	return 1;
 }
