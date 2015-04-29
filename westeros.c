@@ -48,8 +48,7 @@ struct order * place_order(struct customer *customer, char *description,
 		counter = 1;
 	}
 	
-	*num_orders = counter;
-	return this_order;		
+	return *num_orders = counter, this_order;
 }
 
 // in a sense, this is a destructor with some useful side effects
@@ -59,8 +58,7 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 	
 	// bail out if the customer we looked for is nonexistant
 	if (cust == NULL) {
-		*revenue = 0;
-		return 0;
+		return *revenue = 0, 0;
 	}
 	
 	// initialize curr ptr and vars for transaction information
@@ -87,8 +85,7 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 
 	// bail out if we couldn't find the order
 	if (order_exists == 0) {
-		*revenue = 0;
-		return 0;
+		return *revenue = 0, 0;
 	}
 	
 	// prepare pointers for list traversal
@@ -117,8 +114,7 @@ int fulfill_order(char *customer_name, int order_num, float *revenue) {
 	}
 	
 	// home free
-	*revenue = cash;
-	return 1;
+	return *revenue = cash, 1;
 }
 
 void get_order_history(struct order_history *order_history) {
