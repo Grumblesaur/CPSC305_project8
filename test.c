@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
@@ -10,7 +9,7 @@ int main(int argc, char *argv[]) {
 
     if (argc != 2) {
         printf("Usage: %s ec=[true|false].\n", argv[0]);
-        return;
+        return 1;
     }
     if (!strcmp(argv[1],"ec=true")) {
         ec = 1;

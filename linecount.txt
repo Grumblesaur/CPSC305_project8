@@ -3,13 +3,13 @@
 0 lines of comments.
 11 lines of whitespace.
 
-134 lines in file 'test.c'.
+133 lines in file 'test.c'.
 14 lines of code.
 99 lines of comments.
-21 lines of whitespace.
+20 lines of whitespace.
 
-126 lines in file 'westeros.c'.
-86 lines of code.
+122 lines in file 'westeros.c'.
+82 lines of code.
 22 lines of comments.
 18 lines of whitespace.
 
@@ -18,7 +18,7 @@
 10 lines of comments.
 16 lines of whitespace.
 
-359 lines in files overall.
-162 lines of code.
+354 lines in files overall.
+158 lines of code.
 131 lines of comments.
-66 lines of whitespace.
+65 lines of whitespace.
